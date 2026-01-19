@@ -18,6 +18,7 @@ body {
   background: white;
   border-radius: 12px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  overflow: hidden;
 }
 
 .titlebar {
@@ -33,4 +34,10 @@ body {
 .content {
   padding: 20px;
   font-size: 18px;
+}
+
+.bottombar {
+  height: 72px;
+  background: #ededed;
+  border-top: 1px solid #d0d0d0;
 }
