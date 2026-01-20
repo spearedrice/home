@@ -29,3 +29,5 @@ document.addEventListener('mousemove', (e) => {
 document.addEventListener('mouseup', () => {
   dragging = false;
 });
+
+// this is the WORST code i've ever written in my life

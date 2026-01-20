@@ -40,4 +40,28 @@ body {
   height: 72px;
   background: #ededed;
   border-top: 1px solid #d0d0d0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navbtn {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.navbtn img {
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+}
+
+.navbtn span {
+  font-size: 12px;
 }
