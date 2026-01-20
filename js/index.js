@@ -30,4 +30,4 @@ document.addEventListener('mouseup', () => {
   dragging = false;
 });
 
-// this is the WORST code i've ever written in my life
+/* just typing shi atp */
