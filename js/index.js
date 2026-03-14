@@ -1,80 +1,83 @@
-const mainWindow = document.getElementById('window');
-const mainBar = document.getElementById('titlebar');
+let win=document.getElementById("window")
+let bar=document.getElementById("titlebar")
 
-let zIndex = 1;
+let offsetX=0
+let offsetY=0
+let drag=false
 
-function drag(win, bar) {
-  let dragging = false;
-  let startX = 0;
-  let startY = 0;
-  let x = 0;
-  let y = 0;
-
-  bar.addEventListener('mousedown', e => {
-    dragging = true;
-    startX = e.clientX;
-    startY = e.clientY;
-    win.style.zIndex = ++zIndex;
-  });
-
-  document.addEventListener('mousemove', e => {
-    if (!dragging) return;
-
-    x += e.clientX - startX;
-    y += e.clientY - startY;
-
-    startX = e.clientX;
-    startY = e.clientY;
-
-    win.style.transform =
-      `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-  });
-
-  document.addEventListener('mouseup', () => {
-    dragging = false;
-  });
+bar.onmousedown=e=>{
+drag=true
+offsetX=e.clientX-win.offsetLeft
+offsetY=e.clientY-win.offsetTop
 }
 
-drag(mainWindow, mainBar);
+document.onmouseup=()=>drag=false
 
-function spawnChildWindow(page) {
-  const win = document.createElement('div');
-  win.className = 'child-window window';
-  win.style.zIndex = ++zIndex;
-
-  const bar = document.createElement('div');
-  bar.className = 'titlebar';
-
-  const title = document.createElement('span');
-  title.textContent = page;
-
-  const close = document.createElement('button');
-  close.className = 'close';
-  close.textContent = '×';
-  close.onclick = () => win.remove();
-
-  bar.appendChild(title);
-  bar.appendChild(close);
-
-  const content = document.createElement('div');
-  content.className = 'content';
-  content.textContent = 'loading...';
-
-  win.appendChild(bar);
-  win.appendChild(content);
-  document.body.appendChild(win);
-
-  drag(win, bar);
-
-  fetch(`children/${page}.html`)
-    .then(res => res.text())
-    .then(html => {
-      content.innerHTML = html;
-    });
+document.onmousemove=e=>{
+if(!drag)return
+win.style.left=e.clientX-offsetX+"px"
+win.style.top=e.clientY-offsetY+"px"
+win.style.transform="none"
 }
 
-document.querySelectorAll('.navbtn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    spawnChildWindow(btn.dataset.page);
-  });
-});
+document.querySelectorAll(".navbtn").forEach(btn=>{
+btn.onclick=()=>{
+openChild(btn.dataset.page)
+}
+})
+
+function openChild(page){
+
+let existing=document.getElementById(page+"Win")
+if(existing){
+existing.style.display="block"
+return
+}
+
+fetch("children/"+page+".html")
+.then(r=>r.text())
+.then(html=>{
+
+let div=document.createElement("div")
+div.className="child-window"
+div.id=page+"Win"
+div.style.left=150+Math.random()*200+"px"
+div.style.top=120+Math.random()*160+"px"
+div.innerHTML=html
+
+document.body.appendChild(div)
+
+let t=div.querySelector(".child-titlebar")
+
+let dx=0,dy=0,d=false
+
+t.onmousedown=e=>{
+d=true
+dx=e.clientX-div.offsetLeft
+dy=e.clientY-div.offsetTop
+}
+
+document.onmousemove=e=>{
+if(!d)return
+div.style.left=e.clientX-dx+"px"
+div.style.top=e.clientY-dy+"px"
+}
+
+document.onmouseup=()=>d=false
+
+div.querySelector(".closebtn").onclick=()=>{
+div.style.display="none"
+}
+
+})
+
+}
+
+function copyAddress(id){
+let text=document.getElementById(id).innerText
+navigator.clipboard.writeText(text)
+
+let p=document.getElementById("copy-popup")
+p.style.opacity=1
+setTimeout(()=>p.style.opacity=0,1200)
+}
