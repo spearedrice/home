@@ -1,35 +1,28 @@
-<div class="child-titlebar">donate<button class="closebtn">×</button></div>
+<div class="page">
+    <h1>donate</h1>
+    <p>support my work</p>
 
-<div class="child-content donate-grid">
+    <div class="card">
+        <p>paypal</p>
+        <a href="https://paypal.me/dontwasterice" target="_blank">paypal.me/dontwasterice</a>
+    </div>
 
-<div class="coin">
-<img src="../assets/crypto/btc.png" class="qr">
-<div class="coin-name">bitcoin</div>
-<code id="btc">bc1qm0jljmmxa0xhgtre20z80ue624q7kmj7n0rj23</code>
-<button onclick="copyAddress('btc')">copy</button>
+    <div class="card">
+        <p>crypto</p>
+        <div>
+            <strong>bitcoin</strong><br>
+            bc1qm0jljmmxa0xhgtre20z80ue624q7kmj7n0rj23
+            <button onclick="window.parent.copyAddress('bc1qm0jljmmxa0xhgtre20z80ue624q7kmj7n0rj23')">copy</button>
+        </div>
+        <div>
+            <strong>solana</strong><br>
+            JED5q1bgrafZk1gMTCMTLQfMmYibF4Q8Roy1ZYUJGEbC
+            <button onclick="window.parent.copyAddress('JED5q1bgrafZk1gMTCMTLQfMmYibF4Q8Roy1ZYUJGEbC')">copy</button>
+        </div>
+        <div>
+            <strong>ethereum</strong><br>
+            0x49Ee610226A5F261Ae93aA660bA8A1a978528652
+            <button onclick="window.parent.copyAddress('0x49Ee610226A5F261Ae93aA660bA8A1a978528652')">copy</button>
+        </div>
+    </div>
 </div>
-
-<div class="coin">
-<img src="../assets/crypto/sol.png" class="qr">
-<div class="coin-name">solana</div>
-<code id="sol">JED5q1bgrafZk1gMTCMTLQfMmYibF4Q8Roy1ZYUJGEbC</code>
-<button onclick="copyAddress('sol')">copy</button>
-</div>
-
-<div class="coin">
-<img src="../assets/crypto/eth.png" class="qr">
-<div class="coin-name">ethereum</div>
-<code id="eth">0x49Ee610226A5F261Ae93aA660bA8A1a978528652</code>
-<button onclick="copyAddress('eth')">copy</button>
-</div>
-
-<div class="coin">
-<img src="../assets/crypto/usdc.png" class="qr">
-<div class="coin-name">usdc (sol)</div>
-<code id="usdc">JED5q1bgrafZk1gMTCMTLQfMmYibF4Q8Roy1ZYUJGEbC</code>
-<button onclick="copyAddress('usdc')">copy</button>
-</div>
-
-</div>
-
-<div id="copy-popup">copied</div>

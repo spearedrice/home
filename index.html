@@ -1,54 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>rice</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <title>rice</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<div class="window" id="window">
-<div class="titlebar" id="titlebar">rice</div>
-
-<div class="content" id="content">
-hi, i'm rice
+<div class="window" id="main-window">
+    <div class="titlebar" id="main-titlebar">rice</div>
+    <div class="content" id="main-content">
+        <h1>rice</h1>
+        <p>hi, i'm rice</p>
+    </div>
 </div>
 
-<div class="bottombar">
-
-<button class="navbtn" data-page="about">
-<img src="assets/icons/about.png">
-<span>about</span>
-</button>
-
-<button class="navbtn" data-page="work">
-<img src="assets/icons/work.png">
-<span>work</span>
-</button>
-
-<button class="navbtn" data-page="links">
-<img src="assets/icons/links.png">
-<span>links</span>
-</button>
-
-<button class="navbtn" data-page="faq">
-<img src="assets/icons/faq.png">
-<span>faq</span>
-</button>
-
-<button class="navbtn" data-page="contact">
-<img src="assets/icons/contact.png">
-<span>contact</span>
-</button>
-
-<button class="navbtn" data-page="donate">
-<img src="assets/icons/donation.png">
-<span>donate</span>
-</button>
-
+<div class="dock">
+    <button class="navbtn" data-page="about"><img src="assets/icons/about.png"><span>about</span></button>
+    <button class="navbtn" data-page="work"><img src="assets/icons/work.png"><span>work</span></button>
+    <button class="navbtn" data-page="links"><img src="assets/icons/links.png"><span>links</span></button>
+    <button class="navbtn" data-page="faq"><img src="assets/icons/faq.png"><span>faq</span></button>
+    <button class="navbtn" data-page="contact"><img src="assets/icons/contact.png"><span>contact</span></button>
+    <button class="navbtn" data-page="donation"><img src="assets/icons/donation.png"><span>donate</span></button>
 </div>
-</div>
+
+<div id="copy-popup">copied</div>
 
 <script src="js/index.js"></script>
 </body>

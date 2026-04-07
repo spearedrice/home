@@ -1,83 +1,81 @@
-let win=document.getElementById("window")
-let bar=document.getElementById("titlebar")
+let z = 10;
 
-let offsetX=0
-let offsetY=0
-let drag=false
+const mainWin = document.getElementById("main-window");
+const mainBar = document.getElementById("main-titlebar");
 
-bar.onmousedown=e=>{
-drag=true
-offsetX=e.clientX-win.offsetLeft
-offsetY=e.clientY-win.offsetTop
+function centerMainWindow() {
+    mainWin.style.left = "50%";
+    mainWin.style.top = "50%";
+    mainWin.style.transform = "translate(-50%, -50%)";
+}
+centerMainWindow();
+
+mainBar.onmousedown = e => {
+    let r = mainWin.getBoundingClientRect();
+    mainWin.style.left = r.left + "px";
+    mainWin.style.top = r.top + "px";
+    mainWin.style.transform = "none";
+    let sx = e.clientX - r.left;
+    let sy = e.clientY - r.top;
+    mainWin.style.zIndex = ++z;
+
+    let drag = true;
+    const move = ev => { if (!drag) return; mainWin.style.left = (ev.clientX - sx) + "px"; mainWin.style.top = (ev.clientY - sy) + "px"; };
+    const up = () => { drag = false; document.removeEventListener("mousemove", move); document.removeEventListener("mouseup", up); };
+    document.addEventListener("mousemove", move);
+    document.addEventListener("mouseup", up);
+};
+
+document.querySelectorAll(".navbtn").forEach(btn => {
+    btn.onclick = () => openChild(btn.dataset.page);
+});
+
+function openChild(page) {
+    let existing = document.getElementById(page);
+    if (existing) {
+        existing.style.display = "block";
+        existing.style.zIndex = ++z;
+        return;
+    }
+
+    let w = document.createElement("div");
+    w.className = "child-window";
+    w.id = page;
+    w.style.left = (180 + Math.random() * 160) + "px";
+    w.style.top = (100 + Math.random() * 140) + "px";
+    w.style.zIndex = ++z;
+
+    w.innerHTML = `
+        <div class="child-titlebar">
+            ${page}
+            <button class="closebtn">×</button>
+        </div>
+        <iframe src="children/${page}.html"></iframe>
+    `;
+
+    document.body.appendChild(w);
+
+    let tb = w.querySelector(".child-titlebar");
+    let dragging = false, dx = 0, dy = 0;
+
+    tb.onmousedown = e => {
+        dragging = true;
+        dx = e.clientX - w.offsetLeft;
+        dy = e.clientY - w.offsetTop;
+        w.style.zIndex = ++z;
+
+        const move = ev => { if (!dragging) return; w.style.left = (ev.clientX - dx) + "px"; w.style.top = (ev.clientY - dy) + "px"; };
+        const up = () => { dragging = false; document.removeEventListener("mousemove", move); document.removeEventListener("mouseup", up); };
+        document.addEventListener("mousemove", move);
+        document.addEventListener("mouseup", up);
+    };
+
+    w.querySelector(".closebtn").onclick = () => w.style.display = "none";
 }
 
-document.onmouseup=()=>drag=false
-
-document.onmousemove=e=>{
-if(!drag)return
-win.style.left=e.clientX-offsetX+"px"
-win.style.top=e.clientY-offsetY+"px"
-win.style.transform="none"
-}
-
-document.querySelectorAll(".navbtn").forEach(btn=>{
-btn.onclick=()=>{
-openChild(btn.dataset.page)
-}
-})
-
-function openChild(page){
-
-let existing=document.getElementById(page+"Win")
-if(existing){
-existing.style.display="block"
-return
-}
-
-fetch("children/"+page+".html")
-.then(r=>r.text())
-.then(html=>{
-
-let div=document.createElement("div")
-div.className="child-window"
-div.id=page+"Win"
-div.style.left=150+Math.random()*200+"px"
-div.style.top=120+Math.random()*160+"px"
-div.innerHTML=html
-
-document.body.appendChild(div)
-
-let t=div.querySelector(".child-titlebar")
-
-let dx=0,dy=0,d=false
-
-t.onmousedown=e=>{
-d=true
-dx=e.clientX-div.offsetLeft
-dy=e.clientY-div.offsetTop
-}
-
-document.onmousemove=e=>{
-if(!d)return
-div.style.left=e.clientX-dx+"px"
-div.style.top=e.clientY-dy+"px"
-}
-
-document.onmouseup=()=>d=false
-
-div.querySelector(".closebtn").onclick=()=>{
-div.style.display="none"
-}
-
-})
-
-}
-
-function copyAddress(id){
-let text=document.getElementById(id).innerText
-navigator.clipboard.writeText(text)
-
-let p=document.getElementById("copy-popup")
-p.style.opacity=1
-setTimeout(()=>p.style.opacity=0,1200)
-}
+window.copyAddress = function(text) {
+    navigator.clipboard.writeText(text);
+    const popup = document.getElementById("copy-popup");
+    popup.style.opacity = 1;
+    setTimeout(() => popup.style.opacity = 0, 1200);
+};
