@@ -1,28 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>donation</title>
+    <style>
+        body { margin:0; padding:20px; font-family:Arial,Helvetica,sans-serif; background:white; }
+        .page { max-width:100%; }
+        h1 { margin:0 0 20px 0; font-size:28px; }
+        .card { background:#f8f8f8; padding:16px; border-radius:10px; margin-bottom:20px; }
+        .coin { margin:16px 0; }
+        strong { display:block; margin-bottom:4px; }
+        code { 
+            display:block; 
+            background:#f0f0f0; 
+            padding:10px; 
+            border-radius:6px; 
+            font-size:13px; 
+            word-break:break-all; 
+            margin:8px 0;
+        }
+        button {
+            background:#000;
+            color:white;
+            border:none;
+            padding:10px 16px;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:14px;
+        }
+        .wallet-btn {
+            background:#0066ff;
+            margin-top:8px;
+        }
+    </style>
+</head>
+<body>
+
 <div class="page">
     <h1>donate</h1>
     <p>support my work</p>
 
     <div class="card">
-        <p>paypal</p>
+        <strong>paypal</strong>
         <a href="https://paypal.me/dontwasterice" target="_blank">paypal.me/dontwasterice</a>
     </div>
 
     <div class="card">
-        <p>crypto</p>
-        <div>
-            <strong>bitcoin</strong><br>
-            bc1qm0jljmmxa0xhgtre20z80ue624q7kmj7n0rj23
-            <button onclick="window.parent.copyAddress('bc1qm0jljmmxa0xhgtre20z80ue624q7kmj7n0rj23')">copy</button>
+        <strong>crypto</strong>
+
+        <div class="coin">
+            <strong>bitcoin</strong>
+            <code>bc1qm0jljmmxa0xhgtre20z80ue624q7kmj7n0rj23</code>
+            <button onclick="copyText('bc1qm0jljmmxa0xhgtre20z80ue624q7kmj7n0rj23')">copy</button>
+            <button onclick="payWithWallet('bitcoin:bc1qm0jljmmxa0xhgtre20z80ue624q7kmj7n0rj23')" class="wallet-btn">pay with wallet</button>
         </div>
-        <div>
-            <strong>solana</strong><br>
-            JED5q1bgrafZk1gMTCMTLQfMmYibF4Q8Roy1ZYUJGEbC
-            <button onclick="window.parent.copyAddress('JED5q1bgrafZk1gMTCMTLQfMmYibF4Q8Roy1ZYUJGEbC')">copy</button>
+
+        <div class="coin">
+            <strong>solana</strong>
+            <code>JED5q1bgrafZk1gMTCMTLQfMmYibF4Q8Roy1ZYUJGEbC</code>
+            <button onclick="copyText('JED5q1bgrafZk1gMTCMTLQfMmYibF4Q8Roy1ZYUJGEbC')">copy</button>
+            <button onclick="payWithWallet('solana:JED5q1bgrafZk1gMTCMTLQfMmYibF4Q8Roy1ZYUJGEbC')" class="wallet-btn">pay with wallet</button>
         </div>
-        <div>
-            <strong>ethereum</strong><br>
-            0x49Ee610226A5F261Ae93aA660bA8A1a978528652
-            <button onclick="window.parent.copyAddress('0x49Ee610226A5F261Ae93aA660bA8A1a978528652')">copy</button>
+
+        <div class="coin">
+            <strong>ethereum</strong>
+            <code>0x49Ee610226A5F261Ae93aA660bA8A1a978528652</code>
+            <button onclick="copyText('0x49Ee610226A5F261Ae93aA660bA8A1a978528652')">copy</button>
+            <button onclick="payWithWallet('ethereum:0x49Ee610226A5F261Ae93aA660bA8A1a978528652')" class="wallet-btn">pay with wallet</button>
         </div>
     </div>
 </div>
+
+<script>
+    function copyText(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            const btns = document.querySelectorAll('button');
+            for (let b of btns) {
+                if (b.textContent === 'copy') {
+                    const original = b.textContent;
+                    b.textContent = 'copied!';
+                    setTimeout(() => b.textContent = original, 1500);
+                }
+            }
+        });
+    }
+
+    function payWithWallet(uri) {
+        window.open(uri, '_self');
+    }
+</script>
+
+</body>
+</html>

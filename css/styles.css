@@ -8,13 +8,18 @@ body {
     overflow: hidden;
 }
 
+
+
 .window, .child-window {
     position: fixed;
-    width: 360px;
+    width: 380px;
+    min-width: 320px;
+    min-height: 300px;
     background: white;
     border-radius: 12px;
     box-shadow: 0 12px 30px rgba(0,0,0,0.2);
     overflow: hidden;
+    resize: both;
 }
 
 .titlebar, .child-titlebar {
@@ -31,16 +36,8 @@ body {
 }
 
 .content {
-    padding: 40px 20px;
+    padding: 40px 24px;
     min-height: 260px;
-    text-align: center;
-    font-size: 19px;
-    line-height: 1.4;
-}
-
-.content h1 {
-    font-size: 36px;
-    margin: 0 0 12px 0;
 }
 
 .dock {
@@ -68,10 +65,7 @@ body {
     padding: 4px 8px;
 }
 
-.navbtn img {
-    width: 42px;
-    height: 42px;
-}
+.navbtn img { width: 42px; height: 42px; }
 
 .child-window iframe {
     width: 100%;
